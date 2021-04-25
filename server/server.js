@@ -1,10 +1,11 @@
+import React from 'react'
 import express from 'express'
 import path from 'path'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
 import { renderToStaticNodeStream } from 'react-dom/server'
-import React from 'react'
+import { readFile } from 'fs/promises'
 
 import cookieParser from 'cookie-parser'
 import config from './config'
@@ -34,6 +35,12 @@ const middleware = [
 ]
 
 middleware.forEach((it) => server.use(it))
+
+server.get('/api/v1/getItems', (req, res) => {
+  readFile(`${__dirname}/data.json`, { encoding: 'utf8' })
+    .then((text) => res.json(JSON.parse(text)))
+    .catch((err) => err)
+})
 
 server.use('/api/', (req, res) => {
   res.status(404)
