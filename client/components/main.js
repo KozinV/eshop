@@ -10,7 +10,7 @@ const Main = () => {
     })
   }, [])
   return (
-    <div className="flex flex-wrap flex-row justify-items-stretch bg-gray-300">
+    <div className="flex flex-wrap flex-row justify-center bg-gray-300">
       {items.map((it) => (
         <Card product={it} key={it.id} />
       ))}
