@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { getCards } from '../redux/reducers/market'
 import Card from './card'
 
 const Main = () => {
-  const [items, setItems] = useState([])
+  const dispatch = useDispatch()
+  const cards = useSelector((s) => s.market.cards)
   useEffect(() => {
-    axios.get('/api/v1/getItems').then((it) => {
-      setItems(it.data)
-    })
+    dispatch(getCards())
   }, [])
   return (
-    <div className="flex flex-wrap flex-row justify-center bg-gray-300">
-      {items.map((it) => (
-        <Card product={it} key={it.id} />
-      ))}
-    </div>
+    <>
+      <div className="flex flex-wrap flex-row justify-center bg-gray-300">
+        {cards.map((it) => (
+          <Card product={it} key={it.id} />
+        ))}
+      </div>
+    </>
   )
 }
 
