@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const GET_CARDS = 'GET_CARDS'
-const ADD_ITEM = 'ADD_ITEM'
+const INCR_ITEM = 'INCR_ITEM'
 const DECR_ITEM = 'DECR_ITEM'
 
 const initialState = {
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
         cards: action.data
       }
     }
-    case ADD_ITEM: {
+    case INCR_ITEM: {
       if (typeof state.basket[action.id] === 'undefined') {
         return {
           ...state,
@@ -26,7 +26,20 @@ export default (state = initialState, action) => {
       }
       return {
         ...state,
-        basket: { ...state.basket, [action.id]: state.basket[action.id] + 1 }
+        basket: { ...state.basket, [action.id]: (state.basket[action.id] || 0) + 1 }
+      }
+    }
+    case DECR_ITEM: {
+      const tempBasket = {
+        ...state.basket,
+        [action.id]: state.basket[action.id] - 1
+      }
+      if (tempBasket[action.id] <= 0 || null) {
+        delete tempBasket[action.id]
+      }
+      return {
+        ...state,
+        basket: tempBasket
       }
     }
     default:
@@ -42,8 +55,8 @@ export function getCards() {
   }
 }
 
-export function addItem(id) {
-  return { type: ADD_ITEM, id }
+export function incrItem(id) {
+  return { type: INCR_ITEM, id }
 }
 
 export function decrItem(id) {

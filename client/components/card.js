@@ -1,10 +1,11 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { addItem } from '../redux/reducers/market'
+import { incrItem, decrItem } from '../redux/reducers/market'
 
 const Card = (props) => {
   const dispatch = useDispatch()
   const count = useSelector((s) => s.market.basket[props.product.id])
+  const basket = useSelector((s) => s.market.basket)
   return (
     <div className="flex flex-col justify-between max-w-xs bg-white shadow-lg rounded-lg overflow-hidden my-10 mx-5 w-1/3">
       <div>
@@ -27,15 +28,19 @@ const Card = (props) => {
             <button
               type="button"
               className="text-black-700 font-bold text-4xl bg-gray-200 h-10 w-10 rounded-full hover:bg-white"
-              // onClick={() => setCount(Math.max(count - 1, 0))}
+              onClick={() => {
+                if (typeof basket[props.product.id] !== 'undefined') {
+                  dispatch(decrItem(props.product.id))
+                }
+              }}
             >
               -
             </button>
-            <div className="text-white font-bold text-3xl text-center w-10">{count}</div>
+            <span className="text-white font-bold text-3xl text-center w-10">{count || 0}</span>
             <button
               type="button"
               className="text-black-700 font-bold text-4xl bg-gray-200 h-10 w-10 rounded-full hover:bg-white"
-              onClick={() => dispatch(addItem(props.product.id))}
+              onClick={() => dispatch(incrItem(props.product.id))}
             >
               +
             </button>
