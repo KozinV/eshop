@@ -7,23 +7,23 @@ const Card = (props) => {
   const count = useSelector((s) => s.market.basket[props.product.id])
   const basket = useSelector((s) => s.market.basket)
   return (
-    <div className="flex flex-col justify-between max-w-xs bg-white shadow-lg rounded-lg overflow-hidden my-10 mx-5 w-1/3">
+    <div className="card flex flex-col justify-between max-w-xs bg-white shadow-lg rounded-lg overflow-hidden my-10 mx-5 w-1/3">
       <div>
-        <div className="flex flex-col justify-between px-4 py-2">
-          <h1 className="block text-gray-900 font-bold text-3xl uppercase">
+        <div className="card__title flex flex-col justify-between px-4 py-2">
+          <h3 className="block text-gray-900 font-bold text-3xl uppercase">
             {props.product.title}
-          </h1>
+          </h3>
           <p className="block text-gray-600 text-sm mt-1">{props.product.description}</p>
         </div>
       </div>
       <div>
         <img
-          className="h-56 w-full object-cover mt-2"
+          className="card__image h-56 w-full object-cover mt-2"
           src={props.product.image}
           alt={props.product.title}
         />
         <div className="flex items-center justify-between px-4 py-2 bg-gray-900">
-          <h1 className="text-gray-200 font-bold text-xl">{props.product.price}</h1>
+          <h1 className="card__price text-gray-200 font-bold text-xl">{props.product.price}</h1>
           <div className="flex flex-row">
             <button
               type="button"
@@ -36,7 +36,9 @@ const Card = (props) => {
             >
               -
             </button>
-            <span className="text-white font-bold text-3xl text-center w-10">{count || 0}</span>
+            <span className="card__product-amount text-white font-bold text-3xl text-center w-10">
+              {count || 0}
+            </span>
             <button
               type="button"
               className="text-black-700 font-bold text-4xl bg-gray-200 h-10 w-10 rounded-full hover:bg-white"
