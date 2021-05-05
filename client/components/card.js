@@ -6,6 +6,7 @@ const Card = (props) => {
   const dispatch = useDispatch()
   const count = useSelector((s) => s.market.basket[props.product.id])
   const basket = useSelector((s) => s.market.basket)
+
   return (
     <div className="card flex flex-col justify-between max-w-xs bg-white shadow-lg rounded-lg overflow-hidden my-10 mx-5 w-1/3">
       <div>

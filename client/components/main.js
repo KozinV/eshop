@@ -9,7 +9,7 @@ const Main = () => {
   const cards = useSelector((s) => s.market.cards)
   useEffect(() => {
     dispatch(getCards())
-  })
+  }, [])
   return (
     <>
       <Header />

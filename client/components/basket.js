@@ -3,7 +3,7 @@ import Header from './header'
 
 const Basket = () => {
   return (
-    <div className="flex">
+    <div>
       <Header />
       <div>basket</div>
     </div>
