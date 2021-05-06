@@ -4,6 +4,7 @@ import path from 'path'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import sockjs from 'sockjs'
+import axios from 'axios'
 import { renderToStaticNodeStream } from 'react-dom/server'
 import { readFile } from 'fs/promises'
 
@@ -39,6 +40,13 @@ middleware.forEach((it) => server.use(it))
 server.get('/api/v1/getItems', (req, res) => {
   readFile(`${__dirname}/data.json`, { encoding: 'utf8' })
     .then((text) => res.json(JSON.parse(text)))
+    .catch((err) => err)
+})
+
+server.get('/api/v1/getRate', async (req, res) => {
+  await axios
+    .get('https://api.ratesapi.io/api/latest?base=USD&symbols=EUR,CAD,USD')
+    .then(({ data }) => res.json(data))
     .catch((err) => err)
 })
 

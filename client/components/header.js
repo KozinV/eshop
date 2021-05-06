@@ -11,6 +11,7 @@ const Header = () => {
     (acc, rec) => acc + rec,
     0
   )
+
   const symbols = {
     USD: '$',
     EUR: '€',

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCards } from '../redux/reducers/market'
+import { getCards, getRate } from '../redux/reducers/market'
 import Card from './card'
 import Header from './header'
 
@@ -9,6 +9,7 @@ const Main = () => {
   const cards = useSelector((s) => s.market.cards)
   useEffect(() => {
     dispatch(getCards())
+    dispatch(getRate())
   }, [])
   return (
     <>

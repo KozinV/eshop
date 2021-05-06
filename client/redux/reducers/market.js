@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const GET_CARDS = 'GET_CARDS'
+const GET_RATE = 'GET_RATE'
 const INCR_ITEM = 'INCR_ITEM'
 const DECR_ITEM = 'DECR_ITEM'
 const SET_SORT = 'SET_SORT'
@@ -12,7 +13,8 @@ const initialState = {
   cards: [],
   sort: '',
   basket: {},
-  base: 'USD'
+  base: 'USD',
+  rate: {}
 }
 
 export default (state = initialState, action) => {
@@ -21,6 +23,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         cards: action.data
+      }
+    }
+    case GET_RATE: {
+      return {
+        ...state,
+        rate: action.data.rates,
+        base: action.data.base
       }
     }
     case INCR_ITEM: {
@@ -71,7 +80,6 @@ export default (state = initialState, action) => {
         }
         return 0
       })
-      console.log(newSort)
       return {
         ...state,
         cards: newSort
@@ -96,6 +104,14 @@ export function getCards() {
   return (dispatch) => {
     axios.get('/api/v1/getItems').then((it) => {
       dispatch({ type: GET_CARDS, data: it.data })
+    })
+  }
+}
+
+export function getRate() {
+  return (dispatch) => {
+    axios.get('/api/v1/getRate').then((it) => {
+      dispatch({ type: GET_RATE, data: it.data })
     })
   }
 }
