@@ -12,14 +12,17 @@ const Main = () => {
     dispatch(getRate())
   }, [])
   return (
-    <>
-      <Header />
+    <div>
+      <div className="fixed w-full bg-white">
+        <Header />
+      </div>
+      <div className="h-12" />
       <div className="flex flex-wrap flex-row justify-center bg-gray-300">
         {cards.map((it) => (
           <Card product={it} key={it.id} />
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

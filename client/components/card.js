@@ -6,7 +6,13 @@ const Card = (props) => {
   const dispatch = useDispatch()
   const count = useSelector((s) => s.market.basket[props.product.id])
   const basket = useSelector((s) => s.market.basket)
-
+  const base = useSelector((s) => s.market.base)
+  const rate = useSelector((s) => s.market.rate)
+  const symbols = {
+    USD: '$',
+    EUR: '€',
+    CAD: 'C$'
+  }
   return (
     <div className="card flex flex-col justify-between max-w-xs bg-white shadow-lg rounded-lg overflow-hidden my-10 mx-5 w-1/3">
       <div>
@@ -24,11 +30,13 @@ const Card = (props) => {
           alt={props.product.title}
         />
         <div className="flex items-center justify-between px-4 py-2 bg-gray-900">
-          <h1 className="card__price text-gray-200 font-bold text-xl">{props.product.price}</h1>
+          <h3 className="card__price text-gray-200 font-bold text-xl">{`${(
+            props.product.price * rate[base]
+          ).toFixed(2)}${symbols[base]}`}</h3>
           <div className="flex flex-row">
             <button
               type="button"
-              className="text-black-700 font-bold text-4xl bg-gray-200 h-10 w-10 rounded-full hover:bg-white"
+              className="text-white font-bold text-4xl focus:outline-none"
               onClick={() => {
                 if (typeof basket[props.product.id] !== 'undefined') {
                   dispatch(decrItem(props.product.id))
@@ -42,18 +50,18 @@ const Card = (props) => {
             </span>
             <button
               type="button"
-              className="text-black-700 font-bold text-4xl bg-gray-200 h-10 w-10 rounded-full hover:bg-white"
+              className="text-white font-bold text-4xl focus:outline-none"
               onClick={() => dispatch(incrItem(props.product.id))}
             >
               +
             </button>
           </div>
-          <button
+          {/* <button
             type="button"
             className="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded"
           >
             Add to card
-          </button>
+          </button> */}
         </div>
       </div>
     </div>
