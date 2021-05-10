@@ -56,12 +56,6 @@ const Card = (props) => {
               +
             </button>
           </div>
-          {/* <button
-            type="button"
-            className="px-3 py-1 bg-gray-200 text-sm text-gray-900 font-semibold rounded"
-          >
-            Add to card
-          </button> */}
         </div>
       </div>
     </div>
